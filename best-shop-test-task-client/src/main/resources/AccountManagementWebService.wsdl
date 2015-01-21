@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.shop.best.company.my/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="AccountManagementWebServiceService" targetNamespace="http://ws.shop.best.company.my/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.shop.best.company.my/" elementFormDefault="unqualified" targetNamespace="http://ws.shop.best.company.my/" version="1.0">
+
+  <xs:element name="accountDTO" type="tns:accountDTO"/>
+
+  <xs:element name="getAccount" type="tns:getAccount"/>
+
+  <xs:element name="getAccountResponse" type="tns:getAccountResponse"/>
+
+  <xs:complexType name="getAccount">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getAccountResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:accountDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accountDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accountId" type="xs:string"/>
+      <xs:element minOccurs="0" name="accountName" type="xs:string"/>
+      <xs:element minOccurs="0" name="clientId" type="xs:string"/>
+      <xs:element minOccurs="0" name="orderCount" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getAccountResponse">
+    <wsdl:part element="tns:getAccountResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccount">
+    <wsdl:part element="tns:getAccount" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AccountManagementWebService">
+    <wsdl:operation name="getAccount">
+      <wsdl:input message="tns:getAccount" name="getAccount">
+    </wsdl:input>
+      <wsdl:output message="tns:getAccountResponse" name="getAccountResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccountManagementWebServiceServiceSoapBinding" type="tns:AccountManagementWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAccount">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAccount">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountManagementWebServiceService">
+    <wsdl:port binding="tns:AccountManagementWebServiceServiceSoapBinding" name="AccountManagementWebServicePort">
+      <soap:address location="http://localhost:8080/best-shop-test-task-web/AccountManagementWebService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

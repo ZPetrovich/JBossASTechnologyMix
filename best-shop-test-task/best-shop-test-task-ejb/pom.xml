@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>best-shop-test-task</artifactId>
+        <groupId>my.company.best</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>best-shop-test-task-ejb</artifactId>
+    <packaging>ejb</packaging>
+
+	<name>Test Task: Best Shop EAR: EJB Module</name>
+	
+	<properties>
+	  <!-- Explicitly declaring the source encoding eliminates the following message: -->
+      <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+            resources, i.e. build is platform dependent! -->
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+      <!-- JBoss dependency versions -->
+
+      <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+	
+	</properties>
+    
+    <dependencies>
+
+        <!-- Declare the APIs we depend on and need for compilation. All of 
+            them are provided by JBoss AS 7 -->
+
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Import the JPA API, we use provided scope as the API is included in JBoss AS 7 -->
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+         <!-- Define dependency on hibernate 3.x, since scope is 'compile', 
+            it will be included in WEB-INF/lib -->
+        <!-- Import the hibernate-core, so its included in deployment unit: 
+            NOTE! this scope is "compile", this will make Maven war plugin to include 
+            it in WEB-INF/lib -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
+
+        <!-- Import the hibernate-entitymanager, so its included in deployment 
+            unit: NOTE! this scope is "compile", this will make Maven war plugin to include 
+            it in WEB-INF/lib -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+
+        <!-- Import the hibernate-validator, so its included in deployment 
+            unit: NOTE! this scope is "compile", this will make Maven war plugin to include 
+            it in WEB-INF/lib -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <!-- Import the hibernate-commons-annotations, so its included in 
+            deployment unit: NOTE! this scope is "compile", this will make Maven war 
+            plugin to include it in WEB-INF/lib -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+        </dependency>
+
+        <!-- Import the hibernate-infinispan, so its included in deployment 
+            unit: NOTE! this scope is "compile", this will make Maven war plugin to include 
+            it in WEB-INF/lib -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-infinispan</artifactId>
+        </dependency>
+        
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>${version.ejb.plugin}</version>
+                <configuration>
+                    <!-- Tell Maven we are using EJB 3.1 -->
+                    <ejbVersion>3.1</ejbVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <!-- The default profile skips all tests, though you can tune it 
+                to run just unit tests based on a custom pattern -->
+            <!-- Seperate profiles are provided for running all tests, including 
+                Arquillian tests that execute in the specified container -->
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+    </profiles>
+
+</project>
